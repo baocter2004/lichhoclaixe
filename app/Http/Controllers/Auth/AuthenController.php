@@ -26,9 +26,9 @@ class AuthenController extends Controller
                 'required',
                 'confirmed',
                 'min:8',
-                'regex:/[a-z]',
-                'regex:/[0-9]',
-                'regex:/[\W_]'
+                'regex:/[a-z]/',
+                'regex:/[0-9]/',
+                'regex:/[\W_]/'
             ]
         ]);
 
