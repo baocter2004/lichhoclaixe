@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\InstructorController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Auth\AuthenController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('clients.index');
+});
+
 // Authen 
 Route::controller(AuthenController::class)
     ->group(function () {
@@ -25,6 +32,30 @@ Route::controller(AuthenController::class)
 
         Route::post('logout',  'logout')->name('logout');
     });
-// Member
-
 // Admin
+
+Route::prefix('admin')
+    ->name('admin.')
+    // ->middleware(['auth', 'role:admin'])
+    ->group(function () {
+        Route::prefix('students')
+            ->name('students.')
+            ->controller(StudentController::class)
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+            });
+
+        Route::prefix('instructors')
+            ->name('instructors.')
+            ->controller(InstructorController::class)
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+            });
+
+        Route::prefix('admins')
+            ->name('admins.')
+            ->controller(AdminController::class)
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+            });
+    });
