@@ -9,7 +9,8 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label text-light">Họ Và Tên</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" id="name" name="name">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
+                        id="name" name="name">
                     @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -17,7 +18,8 @@
 
                 <div class="mb-3">
                     <label for="email" class="form-label text-light">Email</label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                        value="{{ old('email') }}" id="email" name="email">
                     @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -25,7 +27,8 @@
 
                 <div class="mb-3">
                     <label for="password" class="form-label text-light">Mật Khẩu</label>
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        name="password">
                     @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -33,7 +36,8 @@
 
                 <div class="mb-3">
                     <label for="password_confirmation" class="form-label text-light">Xác Nhận Mật Khẩu</label>
-                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation">
+                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
+                        id="password_confirmation" name="password_confirmation">
                     @error('password_confirmation')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

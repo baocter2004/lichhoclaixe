@@ -67,8 +67,12 @@ class AuthenController extends Controller
             if ($user->isAdmin()) {
                 return redirect()->route('admin.dashboard');
             }
+            
+            if($user->isInstructor()) {
+                return redirect()->route('instructors.index');
+            }
 
-            return redirect()->route('client.index');
+            return redirect()->route('students.index');
         }
 
         return back()->withErrors([
