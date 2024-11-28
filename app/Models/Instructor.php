@@ -14,8 +14,7 @@ class Instructor extends Model
         "license_number",
         "specialzation",
         "experience_years",
-        "available_from",
-        "available_to",
-        "user_id"
+        "user_id",
+        "student_id"
     ];
 }

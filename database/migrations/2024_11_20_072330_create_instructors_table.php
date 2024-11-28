@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,8 +18,6 @@ return new class extends Migration
             $table->integer('license_number'); // số bằng lái
             $table->string('specialzation',50); // chuyên môn
             $table->integer('experience_years')->default(0);
-            $table->time('available_from'); // giờ bắt đầu
-            $table->time('available_to'); // giờ kết thúc sẵn sàng dạy
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
