@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Instructor;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->integer('total_lessons')->default(0);
             $table->integer('completed_lessons')->default(0);
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Instructor::class)->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

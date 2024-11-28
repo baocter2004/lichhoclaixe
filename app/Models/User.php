@@ -23,7 +23,8 @@ class User extends Authenticatable
     const ROLE_INSTRUCTOR = 'instructor';
     const ROLE_STUDENT = 'student';
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'is_active',
