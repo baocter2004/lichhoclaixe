@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Auth\AuthenController;
+use App\Http\Controllers\Client\InstructorController as ClientInstructorController;
+use App\Http\Controllers\Client\StudentController as ClientStudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,22 +20,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('clients.index');
+    return view('client.index');
 });
 
 // Authen 
 Route::controller(AuthenController::class)
     ->group(function () {
-        Route::get('register',  'showFormRegister')->name('register');
-        Route::post('register',  'handleRegister');
+        Route::get('register', 'showFormRegister')->name('register');
+        Route::post('register', 'handleRegister');
 
-        Route::get('login',  'showFormLogin')->name('login');
-        Route::post('login',  'handleLogin');
+        Route::get('login', 'showFormLogin')->name('login');
+        Route::post('login', 'handleLogin');
 
-        Route::post('logout',  'logout')->name('logout');
+        Route::post('logout', 'logout')->name('logout');
     });
-// Admin
 
+// Admin
 Route::prefix('admin')
     ->name('admin.')
     // ->middleware(['auth', 'role:admin'])
@@ -55,6 +57,30 @@ Route::prefix('admin')
         Route::prefix('admins')
             ->name('admins.')
             ->controller(AdminController::class)
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+            });
+    });
+
+// Client
+Route::prefix('client')
+    ->name('client.')
+    // ->middleware(['auth', 'role:admin'])
+    ->group(function () {
+        Route::prefix('students')
+            ->name('students.')
+            ->controller(ClientStudentController::class)
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('car_registration','car_registration')->name('car_registration');
+                Route::get('bike_registration','bike_registration')->name('bike_registration');
+                Route::get('schedule','schedule')->name('schedule');
+                Route::get('edit_schedule','edit_schedule')->name('edit_schedule');
+            });
+
+        Route::prefix('instructors')
+            ->name('instructors.')
+            ->controller(ClientInstructorController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('index');
             });
