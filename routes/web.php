@@ -38,6 +38,12 @@ Route::prefix('admin')
     ->name('admin.')
     // ->middleware(['auth', 'role:admin'])
     ->group(function () {
+
+        Route::controller(AdminController::class)
+            ->group(function () {
+                Route::get('/', 'dashboard')->name('admin.dashboard');
+            });
+
         Route::prefix('students')
             ->name('students.')
             ->controller(StudentController::class)
@@ -48,13 +54,6 @@ Route::prefix('admin')
         Route::prefix('instructors')
             ->name('instructors.')
             ->controller(InstructorController::class)
-            ->group(function () {
-                Route::get('/', 'index')->name('index');
-            });
-
-        Route::prefix('admins')
-            ->name('admins.')
-            ->controller(AdminController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('index');
             });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Instructor;
 use Illuminate\Http\Request;
 
 class InstructorController extends Controller
@@ -12,7 +13,12 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        //
+        $instructors = Instructor::join('users as u', 'u.id', '=', 'instructors.user_id')
+        ->select([
+            'instructors.*', 'u.name', 'u.email'
+        ])
+        ->latest('instructors.id')->paginate(5);
+        return view('admin.instructors.index',compact('instructors'));
     }
 
     /**
