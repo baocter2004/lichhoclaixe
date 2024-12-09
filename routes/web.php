@@ -40,9 +40,9 @@ Route::prefix('admin')
     ->name('admin.')
     // ->middleware(['auth', 'role:admin'])
     ->group(function () {
-
         Route::controller(AdminController::class)
-            ->group(function() {
+            ->group(function () {
+                Route::get('/', 'dashboard')->name('dashboard');
                 Route::get('/search', 'search')->name('search');
             });
 
