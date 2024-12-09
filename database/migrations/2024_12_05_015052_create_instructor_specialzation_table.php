@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Instructor;
-use App\Models\User;
+use App\Models\Specialzation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('instructor_specialzation', function (Blueprint $table) {
             $table->id();
-            $table->integer('total_lessons')->default(0);
-            $table->integer('completed_lessons')->default(0);
-            $table->foreignIdFor(User::class)->unique()->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Specialzation::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Instructor::class)->constrained()->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -27,8 +24,13 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('students');
+        Schema::table('instructor_specialzation', function (Blueprint $table) {
+            $table->dropForeignIdFor(Instructor::class);
+            $table->dropForeignIdFor(Specialzation::class);
+        });
+
+        Schema::dropIfExists('instructor_specialzation');
     }
 };

@@ -13,17 +13,21 @@
 
 <body>
 
-    <!-- Navbar Start -->
+    <div class="container">
+        <!-- Navbar Start -->
 
-    @include('client.layouts.partials.navbar')
+        @include('client.layouts.partials.navbar')
 
-    <!-- Navbar End -->
+        <!-- Navbar End -->
 
-    @yield('content')
+        @yield('content')
 
-    <!-- Back to Top -->
+        <!-- Back to Top -->
 
-    @include('client.layouts.partials.script')
+        @include('client.layouts.partials.footer')
+
+        @include('client.layouts.partials.script')
+    </div>
 </body>
 
 </html>

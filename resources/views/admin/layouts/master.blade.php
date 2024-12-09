@@ -29,9 +29,13 @@
 
             <!-- Main Content -->
             <div id="content">
-
-                @yield('content')
-
+                <div class="container-fluid">
+                    @include('admin.layouts.partials.nav-search')
+                    <div class="text-center mt-2 mb-2 border">
+                        <h1>@yield('title')</h1>
+                    </div>
+                    @yield('content')
+                </div>
             </div>
             <!-- End of Main Content -->
 

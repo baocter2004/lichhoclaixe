@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Instructor;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -15,10 +16,9 @@ return new class extends Migration
     {
         Schema::create('instructors', function (Blueprint $table) {
             $table->id();
-            $table->integer('license_number'); // số bằng lái
-            $table->string('specialzation',50); // chuyên môn
+            $table->string('license_number',50)->unique(); // số bằng lái
             $table->integer('experience_years')->default(0);
-            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class)->unique()->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

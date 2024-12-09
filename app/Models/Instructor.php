@@ -12,9 +12,16 @@ class Instructor extends Model
 
     protected $fillable = [
         "license_number",
-        "specialzation",
         "experience_years",
         "user_id",
-        "student_id"
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function specialzations()
+    {
+        return $this->belongsToMany(Specialzation::class, 'instructor_specialzation', 'instructor_id', 'specialzation_id');
+    }
 }

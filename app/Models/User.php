@@ -26,6 +26,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'email',
+        'user_image',
         'password',
         'is_active',
         'role'
@@ -61,5 +62,14 @@ class User extends Authenticatable
 
     public function isStudent () {
         return $this->role = self::ROLE_STUDENT;
+    }
+
+    public function instructor()
+    {
+        return $this->hasOne(Instructor::class);
+    }
+
+    public function student() {
+        return $this->hasOne(Student::class);
     }
 }

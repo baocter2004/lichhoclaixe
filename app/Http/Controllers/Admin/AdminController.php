@@ -30,4 +30,35 @@ class AdminController extends Controller
             ])
         );
     }
+
+    public function search()
+    {
+        try {
+            $searchKey = request()->input('search');
+            $searchType = request()->input('search_type');
+            $query = null;
+            if($searchType === 'instructors') {
+                $query =  Instructor::with('user')
+                ->whereHas('user', function ($query) use ($searchKey) {
+                    $query->where('first_name', 'LIKE', '%' . $searchKey . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $searchKey . '%');
+                }); 
+            } else if($searchType === 'students') {
+                $query =  Student::with('user')
+                ->whereHas('user', function ($query) use ($searchKey) {
+                    $query->where('first_name', 'LIKE', '%' . $searchKey . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $searchKey . '%');
+                }); 
+            } else {
+                return back()->with('error','loại tìm kiếm không hợp lệ');
+            }
+
+            $results = $query->paginate(5);
+        
+            return view('admin.search.search-result', compact('results'));
+        } catch (\Throwable $th) {
+            // dd($th->getMessage());
+            return back()->with('error','có lỗi rồi !!!');
+        }
+    }
 }
