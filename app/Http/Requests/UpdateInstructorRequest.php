@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateUserRequest extends FormRequest
+class UpdateInstructorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,24 +23,16 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         $id = $this->segment(3);
-
         return [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => [
+            'license_number' => [
                 'required',
-                'email',
-                Rule::unique('users')->ignore($id)
+                'max:50',
+                Rule::unique('instructors')->ignore($id)
             ],
-            'user_image' => 'nullable|image|max:2048',
-            'is_active' => [
-                'nullable',
-                Rule::in([0, 1])
-            ],
-            'role' => [
-                'required',
-                Rule::in([User::ROLE_INSTRUCTOR, User::ROLE_ADMIN, User::ROLE_STUDENT])
-            ],
+            'experience_years' => 'required|numeric',
+            'user_id' => [
+                Rule::exists('users', 'id')
+            ]
         ];
     }
 }
