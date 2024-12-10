@@ -43,11 +43,18 @@ Route::prefix('admin')
     ->name('admin.')
     // ->middleware(['auth', 'role:admin'])
     ->group(function () {
+
+        Route::controller(AdminController::class)
+            ->group(function() {
+                Route::get('/search', 'search')->name('search');
+            });
+
         Route::prefix('students')
             ->name('students.')
             ->controller(StudentController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('index');
+                Route::get('create', 'create')->name('create');
             });
 
         Route::prefix('instructors')
@@ -55,19 +62,21 @@ Route::prefix('admin')
             ->controller(InstructorController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('index');
-            });
+                Route::get('/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store');
+                Route::get('/{instructor}/show', 'show')->name('show');
+                Route::get('/{instructor}/edit', 'edit')->name('edit');
+                Route::put('/{instructor}', 'update')->name('update');
+                Route::delete('/{instructor}/destroy', 'destroy')->name('destroy');
 
-        Route::prefix('admins')
-            ->name('admins.')
-            ->controller(AdminController::class)
-            ->group(function () {
-                Route::get('/', 'index')->name('index');
+                Route::get('/trash', 'trash')->name('trash');
+                Route::post('/trash/{instructor}/restore', 'restore')->name('restore');
+                Route::delete('/trash/{instructor}/force-destroy', 'forceDestroy')->name('force-destroy');
             });
     });
 
 // Client
-Route::prefix('client')
-    ->name('client.')
+Route::name('client.')
     // ->middleware(['auth', 'role:admin'])
     ->group(function () {
         Route::prefix('students')
@@ -75,10 +84,10 @@ Route::prefix('client')
             ->controller(ClientStudentController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('index');
-                Route::get('car_registration','car_registration')->name('car_registration');
-                Route::get('bike_registration','bike_registration')->name('bike_registration');
-                Route::get('schedule','schedule')->name('schedule');
-                Route::get('edit_schedule','edit_schedule')->name('edit_schedule');
+                Route::get('car_registration', 'car_registration')->name('car_registration');
+                Route::get('bike_registration', 'bike_registration')->name('bike_registration');
+                Route::get('schedule', 'schedule')->name('schedule');
+                Route::get('edit_schedule', 'edit_schedule')->name('edit_schedule');
             });
 
         Route::prefix('instructors')
