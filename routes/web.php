@@ -27,10 +27,13 @@ Route::get('/', function () {
 Route::controller(AuthenController::class)
     ->group(function () {
         Route::get('register', 'showFormRegister')->name('register');
-        Route::post('register', 'handleRegister');
+        Route::post('register', 'handleRegister')->name('handleRegister');
 
         Route::get('login', 'showFormLogin')->name('login');
-        Route::post('login', 'handleLogin');
+        Route::post('login', 'handleLogin')->name('handleLogin');
+        
+        Route::get('forgotPassword', 'forgotPassword')->name('forgotPassword');
+        Route::post('forgotPassword', 'handleForgotPassword')->name('handleForgotPassword');
 
         Route::post('logout', 'logout')->name('logout');
     });

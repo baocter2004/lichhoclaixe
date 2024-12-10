@@ -1,86 +1,88 @@
 @extends('auth.layouts.master')
 @section('title')
-    Shopper - Register
+    Register
 @endsection
+
 @section('content')
-    <div class="d-flex justify-content-center">
-        <div class="card p-4" style="background-color: #343a40; border: none; width: 400px; margin-top: 100px;">
-            <form action="{{ route('register') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label text-light">Họ Và Tên</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
-                        id="name" name="name">
-                    @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Tạo tài khoản!</h1>
+                        </div>
+                        <form class="user" method="POST" action="{{ route('handleRegister') }}">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text"
+                                        class="form-control form-control-user @error('LastName') is-invalid @enderror"
+                                        value="{{ old('LastName') }}" placeholder="Họ" id="LastName" name="LastName">
+                                    @error('LastName')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text"
+                                        class="form-control form-control-user @error('FirstName') is-invalid @enderror"
+                                        value="{{ old('FirstName') }}" placeholder="Tên" id="FirstName" name="FirstName">
+                                    @error('FirstName')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email"
+                                    class="form-control form-control-user @error('email') is-invalid @enderror"
+                                    id="email" name="email" placeholder="Email Address">
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="password"
+                                        class="form-control form-control-user @error('password') is-invalid @enderror"
+                                        id="password" name="password" placeholder="Password">
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="password"
+                                        class="form-control form-control-user @error('password_confirmation') is-invalid @enderror"
+                                        id="password_confirmation" name="password_confirmation"
+                                        placeholder="Repeat Password">
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                Register Account
+                            </button>
+                            <hr>
+                            {{--  --}}
+                            <a href="index.html" class="btn btn-google btn-user btn-block">
+                                <i class="fab fa-google fa-fw"></i> Register with Google
+                            </a>
+                            <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                            </a>
+                            {{--  --}}
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="{{ route('forgotPassword') }}">Forgot Password?</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label text-light">Email</label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror"
-                        value="{{ old('email') }}" id="email" name="email">
-                    @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label text-light">Mật Khẩu</label>
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                        name="password">
-                    @error('password')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="password_confirmation" class="form-label text-light">Xác Nhận Mật Khẩu</label>
-                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
-                        id="password_confirmation" name="password_confirmation">
-                    @error('password_confirmation')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <button type="submit" class="btn btn-primary">Register</button>
-            </form>
+            </div>
         </div>
     </div>
 @endsection
-
-<style>
-    body {
-        background-color: #212529;
-    }
-
-    .card {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-    }
-
-    .form-control {
-        background-color: #495057;
-        color: #fff;
-        border: 1px solid #6c757d;
-    }
-
-    .form-control.is-invalid {
-        border-color: #dc3545;
-    }
-
-    .invalid-feedback {
-        display: block;
-        color: #dc3545;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-</style>
